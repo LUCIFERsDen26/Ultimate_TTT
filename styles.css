@@ -59,27 +59,27 @@ body {
 }
 
 /* Styling subBoard */
-#subBoard {
+.subBoard {
     display: flex;
     height: 80%;
     width: 80%;
     padding: 10px;
 }
 
-#subBoard table {
+.subBoard table {
     height: 100%;
     width: 100%;
     border-collapse: collapse;
 }
 
-#subBoard td {
+.subBoard td {
     width: 29px; /* Adjust size as needed */
     height: 20px; /* Adjust size as needed */
     text-align: center;
     vertical-align: middle;
     font-size: 30px; /* Adjust size of X or O */
     font-weight: bold;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc !important; 
     cursor: pointer;
     user-select: none;
     line-height: 10px; /* Ensures text is vertically centered */
@@ -87,21 +87,21 @@ body {
 }
 
 /* Remove outer borders for subBoard */
-#subBoard table tr:first-child td {
-    border-top: none;
+.subBoard table tr:first-child td {
+    border-top: none !important;
 }
-#subBoard table tr:last-child td {
-    border-bottom: none;
+.subBoard table tr:last-child td {
+    border-bottom: none !important;
 }
-#subBoard table tr td:first-child {
-    border-left: none;
+.subBoard table tr td:first-child {
+    border-left: none !important;
 }
-#subBoard table tr td:last-child {
-    border-right: none;
+.subBoard table tr td:last-child {
+    border-right: none !important;
 }
 
-#subBoard td:hover {
-    background-color: silver;
+.subBoard td:hover {
+    background-color: silver !important;
 }
 
 
@@ -191,5 +191,31 @@ body {
     color: white;
     text-align: center;
 }
+
+
+.overlay-X, .overlay-O, .overlay-star {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 6.5rem;
+    font-weight: bold;
+}
+
+.overlay-X {
+    color: red;
+    content: 'X';
+}
+
+.overlay-O {
+    color: yellow;
+    content: 'O';
+}
+
+.overlay-star {
+    color: lightgreen;
+    content: '*';
+}
+
 
 
