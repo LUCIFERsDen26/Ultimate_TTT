@@ -8,7 +8,7 @@ function handleHover(event) {
     const cell = event.target;
     if (!cell.textContent.trim()) {
         cell.textContent = currentPlayer;
-        
+
     }
 }
 
@@ -52,10 +52,61 @@ function togglePlayerTurn() {
 }
 
 // Add event listeners to all cells
-document.querySelectorAll('#subBoard td').forEach(cell => {
+document.querySelectorAll('.subBoard td').forEach(cell => {
     cell.addEventListener('mouseover', handleHover);
     cell.addEventListener('mouseleave', handleMouseLeave);
     cell.addEventListener('click', handleClick);
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    let overlayMode = false;
 
+    // Functional Programming Approach
+    const toggleOverlayMode = (button) => {
+        overlayMode = !overlayMode;
+        button.textContent = overlayMode ? 'Click a Cell to Overlay Red X' : 'Toggle Red X Overlay';
+    };
+
+    const createOverlay = (element, type) => {
+        const overlayText = document.createElement('span');
+        const overlayClass = {
+            'X': 'overlay-X',
+            'O': 'overlay-O',
+            '*': 'overlay-star'
+        };
+
+        if (!overlayClass[type]) return; // Exit if invalid type
+
+        overlayText.className = overlayClass[type];
+        overlayText.textContent = type;
+        element.style.position = 'relative';
+        element.appendChild(overlayText);
+    };
+
+    const handleCellClick = (cell, subBoard) => {
+        if (!overlayMode || cell.classList.contains('overlay')) return;
+
+        createOverlay(cell, 'X'); // Change '*' to 'X' or 'O' as needed
+        cell.classList.add('overlay');
+        subBoard.style.pointerEvents = 'none'; // Disable subBoard clicks
+    };
+
+    const initializeBoard = () => {
+        const mainBoardCells = document.querySelectorAll('#mainBoard td');
+        mainBoardCells.forEach(cell => {
+            const subBoard = cell.querySelector('.subBoard');
+            if (subBoard) {
+                cell.addEventListener('click', () => handleCellClick(cell, subBoard));
+            }
+        });
+    };
+
+    const initializeToggleButton = () => {
+        const toggleButton = document.getElementById('toggleOverlayButton');
+        toggleButton.addEventListener('click', () => toggleOverlayMode(toggleButton));
+    };
+
+    // Initialization
+    initializeToggleButton();
+    initializeBoard();
+});
